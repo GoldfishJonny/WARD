@@ -8,7 +8,7 @@ setup(
         "neo4j",
     ],
     author="GoldfishJonny",
-    description="WARD: A modular library for word and morpheme construction.",
+    description="WARD:(Word And Root Development) A modular library for word and morpheme construction.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/GoldfishJonny/WARD",
