@@ -306,3 +306,21 @@ class WARD:
         """
         with self.driver.session() as session:
             session.run("MATCH (l:Letter {letter: $letter}) DETACH DELETE l", letter=letter)
+    
+    def create_morpheme(self, syllables: list):
+        """Creates a morpheme node in Neo4j and links it to its syllables based on a list of syllables
+        
+        If any of the syllables in the morpheme do not exist, this function does nothing.
+
+        Parameters
+        ----------
+        syllables : list
+            The list of syllables to create a morpheme.     
+        """
+        with self.driver.session() as session:
+            existing_syllables = self.get_syllables()
+            if not all(syllable in existing_syllables for syllable in syllables):
+                return
+            
+            morpheme = "".join(syllables)
+            print(morpheme)

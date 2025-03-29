@@ -20,7 +20,7 @@ Future plans include the creation of morphemes, roots, and the ability to form w
 
 ## Installation
 
-1. Install the `neo4j` package:
+1. Install the `ward-lang` package:
 
     ```bash
     pip install ward-lang
