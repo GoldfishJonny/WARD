@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ward-lang",  # Package name
-    version="0.0.11",  # Version
+    version="0.0.2",  # Version
     packages=find_packages(),
     install_requires=[
         "neo4j",
