@@ -323,4 +323,31 @@ class WARD:
                 return
             
             morpheme = "".join(syllables)
-            print(morpheme)
+            if not self.morpheme_exists(morpheme):
+                CREATE_MORPHEME = "MERGE (m:Morpheme {morpheme: $morpheme}) RETURN m"
+                session.run(CREATE_MORPHEME, morpheme=morpheme)
+            
+            for syllable in syllables:
+                session.run(
+                    """
+                    MATCH (m:Morpheme {morpheme: $morpheme})
+                    MATCH (s:Syllable {syllable: $syllable})
+                    MERGE (m)-[:HAS_SYLLABLE]->(s)
+                    """,
+                    morpheme=morpheme,
+                    syllable=syllable
+                )
+            
+    def morpheme_exists(self, morpheme: str) -> bool:
+        """Checks if a morpheme exists in Neo4j.
+        
+        If the morpheme exists, this function returns True. Otherwise, it returns False.
+        
+        Parameters
+        ----------
+        morpheme : str
+            The morpheme to check for existence.
+        """
+        with self.driver.session() as session:
+            result = session.run("MATCH (m:Morpheme) WHERE m.morpheme = $morpheme RETURN m", morpheme=morpheme)
+            return True if result.single() else False
